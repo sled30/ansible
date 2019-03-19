@@ -1,0 +1,56 @@
+- hosts: snort
+
+  become: yes
+  become_user: root
+  become_method: su
+
+  tasks:
+    - name: PRE_Install_Snort
+      apt: pkg={{ item }} state=installed update_cache=true
+      with_items:
+        - net-tools
+        - build-essential
+        - autotools-dev
+        - libdumbnet-dev
+        - libluajit-5.1-dev
+        - libpcap-dev
+        - libpcre3-dev
+        - zlib1g-dev
+        - pkg-config
+        - libhwloc-dev
+        - libtool
+        - liblzma-dev
+        - openssl
+        - libssl-dev
+        - cpputest
+        - libsqlite3-dev
+        - uuid-dev
+        - bison
+        - flex
+        - libnetfilter-queue-dev
+        - git
+        - cmake
+        - autoconf
+        - libdaq-dev
+        - libdaq2
+        ## snort -c /usr/local/etc/snort/snort.lua -i enp0s3 -A alert_fast -s 65535 -k none -l /var/log/snort
+
+    #- name: Install pithon mode
+    #  apt: pkg{{ item }} state=installed update_cache=true
+    #  with_items:
+    #    - python-pip
+    #    - python-dev
+    #    - libmysqlclient-dev
+    #    - python-mysqldb
+    #    - python3-pip
+    #    - python3-mysqldb
+  #  - name: Installing pip dependencie
+  #    pip: MySQL-python
+  #    extra_args: --index=https://pypi.python.org/pypi/
+  #    version: 1.2.3
+#    - name: Copy apache2 config
+#      copy: src=/etc/ansible/files/apache2.conf dest=/etc/apache2/apache2.conf
+#    - name: restart apache2
+#      service: name=apache2 state=restarted
+#    - name: create db user
+#      mysql_user: name=sled password=xthysirf priv='*.*:ALL' host='%' state=present

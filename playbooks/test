@@ -1,0 +1,15 @@
+- hosts: webserver2
+
+  become: yes
+  become_user: root
+  become_method: su
+
+  tasks:
+    - name: Install Apache2
+      apt: pkg=apache2 state=installed update_cache=true
+      #service: name=nginx state=restarted
+      #sudo: yes
+
+      tasks:
+        - name: restarted apache2 service
+          service: name=apache2 state=restarted

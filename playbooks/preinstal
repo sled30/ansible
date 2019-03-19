@@ -1,0 +1,10 @@
+---
+- hosts: webserver2
+
+  tasks:
+    - name: Update and upgrade apt packages
+      become: true
+      become_method: su
+      become_user: root
+#      become_pass: 
+      apt: pkg=mc update_cache=yes

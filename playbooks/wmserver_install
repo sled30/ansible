@@ -1,0 +1,31 @@
+- hosts: wmserver
+
+  become: yes
+  become_user: root
+  become_method: su
+
+  tasks:
+    - name: Install KVM vertualisation
+      apt: pkg={{ item }} state=installed update_cache=true
+      with_items:
+        - ssh-askpass
+        - netcat
+        - qemu-kvm
+        - libvirt0
+        - libvirt-dev
+        - libvirt-daemon-system
+        - libvirt-clients
+        - virtinst
+        - bridge-utils
+        - virt-manager
+
+    - name: Add user sled to group
+      user:
+         name: sled
+         group: libvirt
+         append: yes
+        #service: name=nginx state=restarted
+      #sudo: yes
+
+# ssh-copy-id -i ~/.ssh/id_rsa.pub sanglyb@192.168.1.5
+#чтобы работал доступ к гостевым
