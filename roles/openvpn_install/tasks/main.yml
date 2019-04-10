@@ -1,0 +1,13 @@
+---
+  - name: Install openvpn
+    apt: pkg=openvpn state=installed update_cache=true
+    register: openvpninstall
+    notify:
+      - openvpn start
+
+
+  - name: create openvpn client
+    when: openvpninstall|success
+    template: src=client.conf dest=/etc/openvpn/client.conf
+    notify:
+      - openvpn restart

@@ -1,0 +1,24 @@
+- hosts: openvpn
+
+  become: yes
+  become_user: root
+  become_method: sudo
+
+  tasks:
+    - name: Install openvpn
+      apt: pkg={{ item }} state=installed update_cache=true
+      with_items:
+        - openvpn
+    - name: Create config for openvpn
+      template:
+          src: openvpn.conf.j2
+          dest: /etc/openvpn/client.conf
+          owner: root
+          group: root
+          mode: 0640
+
+        #service: name=nginx state=restarted
+      #sudo: yes
+
+# ssh-copy-id -i ~/.ssh/id_rsa.pub sanglyb@192.168.1.5
+#чтобы работал доступ к гостевым
